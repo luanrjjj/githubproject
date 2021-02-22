@@ -1,11 +1,15 @@
 
 import GlobalStyle from './styles/global';
-import Dashboard from './Dashboard/index'
+
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './routes'
 
 function App() {
   return (
     <>
-    <Dashboard/>
+    <BrowserRouter>
+    <Routes />
+    </BrowserRouter>
     <GlobalStyle/>
 
     

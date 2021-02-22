@@ -1,6 +1,6 @@
 import styled,{ css } from 'styled-components';
 
-import {shade} from 'polished';
+import {rgb, shade} from 'polished';
 
 
 
@@ -11,8 +11,8 @@ max-width:45px;
 line-height:56px;
 margin-top:80px;
 
-
 `
+
 
 export const Form = styled.form`
 margin-top:40px;
@@ -47,7 +47,47 @@ button {
     transition:background-color 0.2s;
     
     &:hover {
-        background: ${shade(0.2,'#04d361')};
+        background: ${shade(0.2,rgb(36,41,46))};
      }
 }
+`
+
+export const Users = styled.div `
+margin-top:80px;
+max-width:700px;
+
+ a {
+     background : #E5E7E9;
+     border-radius: 5px;
+     width:100%;
+     padding:24px;
+     display:block;
+     text-decoration:none;
+
+     display:flex;
+     align-items:center;
+     transition: transform 0.2s;
+
+& + a {
+    margin-top: 16px;
+    
+}
+
+&:hover {
+    transform:translateX(10px);
+}
+
+ img {
+     width: 64px;
+     height: 64px;
+     border-radius:50%
+ }
+ 
+ div {
+     margin: 0 16px;
+     flex:1;
+
+ }
+ }
+
 `
