@@ -21,7 +21,7 @@ interface User {
     }
 }
 
-const Dashboard : React.FC = () => {
+const UserSearch : React.FC = () => {
     const [newUser,setNewUser] = useState('');
     const [inputError,setInputError] = useState('');
     const [ users,setUsers] = useState <User[]>(()=> {
@@ -91,9 +91,10 @@ return (
                 <FiChevronRight size ={20}/>
             </Link>
         ))}
+        
     </Users>
 
     </>
 )
 }
-export default Dashboard;
+export default UserSearch;
