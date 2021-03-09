@@ -2,7 +2,7 @@ import styled,{ css } from 'styled-components';
 
 import {rgb, shade} from 'polished';
 
-
+// padding : 40 20
 
 export const Title = styled.h1`
 font-size:48px;

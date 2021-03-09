@@ -1,7 +1,7 @@
 import react, {useState, useEffect } from 'react';
 import {useRouteMatch} from 'react-router-dom';
 import GhPolyglot from 'gh-polyglot';
-import {Section,UserInfoStyles} from './styles';
+import {Section,UserInfoStyles,Graphs} from './styles';
 
 import Charts from '../../Components/Charts';
 
@@ -39,7 +39,9 @@ const getUserData = () => {
         if(response.status===403) {
             return setError({active:true,type:403});
         }
+       
         return response.json();
+        
 
 
     }).then(json => setUserData(json))
@@ -49,19 +51,24 @@ const getUserData = () => {
     })
 };
 
+console.log(15,userData)
 
 const getLangData = () => {
     const me = new GhPolyglot(`${username}`);
+    
     me.userStats((err: Error, stats: react.SetStateAction<null>) => {
       if (err) {
         console.error('Error:', err);
         setError({ active: true, type: 400 });
       }
+     
       setLangData(stats);
-    });
+      
+    }); 
+    
   };
 
-  console.log(langData)
+  
 
   const getRepoData = () => {
     fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
@@ -86,30 +93,37 @@ const getLangData = () => {
     getLangData();
     getUserData();
   },[])
-  
 
+  console.log( 2,langData)
+  
   return (
-    <Section>
+    
+    <>
    {userData && (
+     <>
+     <Section>
             <UserInfoStyles>
                 {userData.avatar_url && (
                   <div className ="avatar">
                     <img src = {userData.avatar_url} alt ="avatar"/>
                   </div>
                 )}
-      {userData.name && <h1>{userData.name}</h1>}
-      {userData.created_at && <h1>{userData.created_at}</h1>}
+      {userData.name && <h3>{userData.name}</h3>}
+      {userData.created_at && <h2>{userData.created_at}</h2>}
       {userData.location && <h1>{userData.location}</h1>}
-      <Charts langData = {langData}/>
+      </UserInfoStyles>
+      </Section>
+      <Graphs>
+      {langData && repoData && <Charts langData={langData} repoData={repoData} />}
+      </Graphs>
 
-
-
-            </UserInfoStyles>
+            </>
+            
         )
-                }) 
+                }
 
 
-  </Section>
+ </>
   )
 
 };

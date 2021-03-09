@@ -1,6 +1,19 @@
-import Chart, { ChartLegendOptions } from 'chart.js';
+import Chart, {  ChartData, ChartDataSets, ChartLegendOptions, ChartPoint } from 'chart.js';
 import  theme  from '../styles/theme';
 const { fonts } = theme;
+
+interface Chart1 extends ChartData {
+  
+  ctx:string;
+  chartType:string;
+  legend:ChartLegendOptions;
+  axes:string;
+  borderColor:string;
+  data:any,
+  backgroundColor:string;
+
+  }
+  
 
 const buildScales = ((axes:any) => {
   const scales = {
@@ -36,13 +49,11 @@ const buildLegend = (legend:ChartLegendOptions) => {
   return legend ? leg : undefined;
 };
 
-const buildChart = (config:any) => {
+const buildChart:any = (config:any) => {
   const { ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend } = config;
 
 const chart :Chart =  new Chart(ctx, {
-  type: chartType,
-  /*responsive: true,
-  maintainAspectRatio: false,*/
+  type: 'pie',
   data: {
     labels,
     datasets: [
@@ -50,20 +61,18 @@ const chart :Chart =  new Chart(ctx, {
         data,
         backgroundColor,
         borderColor,
-        borderWidth: 1,
-      },
-    ],
+        borderWidth:1,
+      }
+    ]
   },
+  
+  
   options: {
     scales: buildScales(axes),
     legend: buildLegend(legend),
-    tooltips: {
-      titleFontFamily: fonts.inter,
-      bodyFontFamily: fonts.inter,
-      cornerRadius: 3,
-    },
   },
 });
+console.log(chart)
 
   
 };
