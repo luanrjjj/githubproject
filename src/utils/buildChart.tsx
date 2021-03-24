@@ -53,7 +53,7 @@ const buildChart:any = (config:any) => {
   const { ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend } = config;
 
 const chart :Chart =  new Chart(ctx, {
-  type: 'pie',
+  type: chartType,
   data: {
     labels,
     datasets: [

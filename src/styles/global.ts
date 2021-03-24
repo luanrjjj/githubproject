@@ -20,7 +20,7 @@ body,input,button {
 }
 
 #root {
-    max-width:1380px;
+    max-width:1500px;
     margin:0 auto;
    
 }
@@ -28,5 +28,31 @@ body,input,button {
 button {
     cursor:pointer;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+
+
+ 
+
+  input {
+    border-radius: 0;
+    outline: 0;
+    &:focus {
+      outline: 0;
+    }
+    &::placeholder {
+    }
+    &:focus,
+    &:active {
+      &::placeholder {
+        opacity: 0.5;
+      }
+    }
+  }
 
 `

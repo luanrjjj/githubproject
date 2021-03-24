@@ -2,8 +2,11 @@ import react, {useState, useEffect } from 'react';
 import {useRouteMatch} from 'react-router-dom';
 import GhPolyglot from 'gh-polyglot';
 import {Section,UserInfoStyles,Graphs} from './styles';
-
 import Charts from '../../Components/Charts';
+import {FiCalendar } from 'react-icons/fi';
+import { GoLocation } from 'react-icons/go';
+import Repos from '../../Components/Repos'
+
 
 interface UserParams  {
     user:string;
@@ -15,12 +18,18 @@ avatar_url:string;
 name:string;
 created_at:string;
 location:string;
+login:string;
+html_url:string;
+public_repos:string;
+followers:string;
+following:string;
 }
 
 
 const UserData:React.FC= ()  => {
     
     const [userData,setUserData] = useState<userData|null>(null);
+    
     const[langData,setLangData] = useState(null);
     const[repoData,setRepoData] = useState(null);
     const [error,setError] = useState({active:false,type:200})
@@ -51,7 +60,6 @@ const getUserData = () => {
     })
 };
 
-console.log(15,userData)
 
 const getLangData = () => {
     const me = new GhPolyglot(`${username}`);
@@ -79,7 +87,9 @@ const getLangData = () => {
         if (response.status === 403) {
           return setError({ active: true, type: 403 });
         }
+        console.log(50,response)
         return response.json();
+        
       })
       .then(json => setRepoData(json))
       .catch(error => {
@@ -94,7 +104,7 @@ const getLangData = () => {
     getUserData();
   },[])
 
-  console.log( 2,langData)
+
   
   return (
     
@@ -108,15 +118,69 @@ const getLangData = () => {
                     <img src = {userData.avatar_url} alt ="avatar"/>
                   </div>
                 )}
-      {userData.name && <h3>{userData.name}</h3>}
-      {userData.created_at && <h2>{userData.created_at}</h2>}
-      {userData.location && <h1>{userData.location}</h1>}
+      {userData.name && <h1>{userData.name}</h1>}
+
+      {userData.login && (
+          <h2>
+            <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
+              @{userData.login}
+            </a>
+          </h2>
+        )}  
+<div className= "info">
+{userData.location && (
+            <span className="info__item">
+              <GoLocation className ="icon" size="16" />
+              {userData.location}
+            </span>
+          )}
+
+      {userData.created_at && (
+        <>
+        <span className ="info__item">
+          <FiCalendar className= "icon" size = "16"/>
+          Joined{' '}
+          {new Date (userData.created_at).toLocaleDateString('pt-BR',{
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'  
+                   })}
+        </span>
+      </>
+      )}
+
+</div>
+       <div className="stats">
+          <div className="stats__item">
+            <span className="num">{userData.public_repos.toLocaleString()}</span>
+            <span className="num-label">Repositories</span>
+          </div>
+          <div className="stats__item">
+            <span className="num">{userData.followers.toLocaleString()}</span>
+            <span className="num-label">Followers</span>
+          </div>
+          <div className="stats__item">
+            <span className="num">{userData.following.toLocaleString()}</span>
+            <span className="num-label">Following</span>
+          </div>
+        </div>
+      
       </UserInfoStyles>
       </Section>
       <Graphs>
-      {langData && repoData && <Charts langData={langData} repoData={repoData} />}
-      </Graphs>
+        <div className = "chart">
+          
+          <div className = "chart-container">
+          {langData && repoData && <Charts id = "langChart" langData={langData} repoData={repoData}/>}
+     
+            
+          </div>
+        </div>
+      
+        </Graphs>
+        <Repos/>
 
+      
             </>
             
         )

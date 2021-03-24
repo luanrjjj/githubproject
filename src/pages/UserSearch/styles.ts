@@ -10,7 +10,6 @@ color:#3A3A3A;
 max-width:45px;
 line-height:56px;
 margin-top:80px;
-
 `
 
 

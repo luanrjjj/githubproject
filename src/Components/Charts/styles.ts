@@ -6,7 +6,7 @@ const { colors } = theme;
 
 const ChartsStyles = styled.div`
   max-width: 1200px !important;
-  margin-top: -8rem !important;
+  margin-top: 2rem !important;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 2rem;
